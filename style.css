@@ -273,7 +273,7 @@ header {
 
 /* ----------- Responsivness ----------- */
 
-@media only screen and (max-width: 340px) {
+@media only screen and (max-width: 375px) {
   header {
     padding: 1.5rem 1rem;
   }
