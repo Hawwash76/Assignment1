@@ -273,10 +273,11 @@ header {
 
 /* ----------- Responsivness ----------- */
 
+/* @media only screen and (max-width: 500px) { */
 @media only screen and (max-width: 375px) {
 
   header {
-    padding: 1.5rem 1rem;
+    padding: 1.8rem 1rem;
   }
 
   #headerText {
@@ -314,7 +315,7 @@ header {
   }
 
   #mainImg {
-    width: 360px;
+    width: 300px;
     height: 230px;
   }
 
@@ -329,8 +330,9 @@ header {
   }
 
   #countryDescr {
-    margin-right: 0rem;
+    margin-right: 0;
     margin-top: 3rem;
+    width: 100%;
   }
 
   #info div:nth-child(2) {
@@ -347,5 +349,7 @@ header {
 
   #borderItemContainer {
     margin-top: 1rem;
+    width: 3rem;
+
   }
 }
