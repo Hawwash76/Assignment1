@@ -274,6 +274,7 @@ header {
 /* ----------- Responsivness ----------- */
 
 @media only screen and (max-width: 375px) {
+
   header {
     padding: 1.5rem 1rem;
   }
