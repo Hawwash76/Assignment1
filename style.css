@@ -149,7 +149,8 @@ header {
 }
 
 .dropdown-content a {
-  color: var(--font-grey);
+  /* color: var(--font-grey); */
+  color: inherit;
   padding: 0.2rem 1rem;
   text-decoration: none;
   display: block;
@@ -191,7 +192,7 @@ header {
 
 .card-text {
   margin-top: 1rem;
-  color: var(--font-grey);
+  /* color: var(--font-grey); */
 }
 
 .card-text:last-child {
@@ -285,7 +286,7 @@ header {
 .infoText span {
   margin-left: 0.3rem;
   font-weight: var(--weight-light);
-  color: var(--font-grey);
+  /* color: var(--font-grey); */
 }
 
 .borderCountries {
@@ -319,11 +320,33 @@ header {
     gap: 3rem;
     margin-top: 1rem;
   }
-
   .info {
     display: flex;
     flex-direction: column;
   }
+
+  .infoText:nth-child(2) {
+    margin-top: 2rem;
+  }
+
+  .borderCountries {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .borderCountries span {
+    width: 100%;
+    text-align: left;
+  }
+
+  .borderItemContainer {
+    margin-top: 1rem;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+  }
+
+  
 
 }
 
@@ -338,7 +361,7 @@ header {
   }
 
   .darkMode span {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: var(--weight-semi);
   }
 
@@ -361,6 +384,10 @@ header {
     font-size: 1rem;
   }
 
+  .dropdown-content a {
+    font-size: 1rem;
+  }
+
   .searchBar {
     padding: 1rem 2rem;
     width: 100%;
@@ -372,10 +399,14 @@ header {
 
   .country {
     padding-inline: 3rem;
+    margin-bottom: 0;
   }
 
   .card-title {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
+  }
+  .card-text p, .card-text span {
+    font-size: 1rem;
   }
 
   .imgCol {
@@ -386,7 +417,7 @@ header {
     padding: 1rem 2rem;
   }
 
-  .backButton{
+  .backButton {
     margin-top: 2rem;
   }
 
@@ -395,7 +426,10 @@ header {
     flex-direction: column;
   }
 
-  .infoText p, .infoText p span, .borderCountries span, .borderItem {
+  .infoText p,
+  .infoText p span,
+  .borderCountries span,
+  .borderItem {
     font-size: 1rem;
   }
 
