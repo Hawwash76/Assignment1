@@ -319,6 +319,12 @@ header {
     gap: 3rem;
     margin-top: 1rem;
   }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+  }
+
 }
 
 @media only screen and (max-width: 500px) {
