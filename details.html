@@ -4,68 +4,69 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap"
+      rel="stylesheet"
+    />
     <script
       src="https://kit.fontawesome.com/162c7e4191.js"
       crossorigin="anonymous"
     ></script>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Nunito"
-    />
-    <title>Assignment 1</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>Assignment 2</title>
   </head>
   <body>
     <header>
-      <h2 id="headerText">Where in the world?</h2>
-      <div id="darkMode">
-        <span><i class="fa-regular fa-moon"></i> Dark Mode</span>
+      <div
+        class="mainContainer d-flex justify-content-between align-items-center"
+      >
+        <span class="headerText">Where in the world?</span>
+        <div class="darkMode">
+          <i class="fa-regular fa-moon"></i>
+          <span>Dark Mode</span>
+        </div>
       </div>
     </header>
-    <main id="mainDetails">
-      <div id="backButton">
+    <main class="mainContainer m">
+      <div class="backButton">
         <a href="index.html"> <i class="fa-solid fa-arrow-left"></i> Back </a>
       </div>
-      <div id="mainContent">
-        <img src="images/be.svg" id="mainImg" />
-        <div id="countryDescr">
-          <h1>Belgium</h1>
-          <div id="info">
-            <div>
-              <span class="descLeft"
-                >Native Name:<span class="descRight"> België</span></span
-              >
-              <span class="descLeft"
-                >Population:<span class="descRight"> 11.319.511</span></span
-              >
-              <span class="descLeft"
-                >Region:<span class="descRight"> Europe</span>
-              </span>
-              <span class="descLeft"
-                >Sub Region:<span class="descRight"> Western Europe</span>
-              </span>
-              <span class="descLeft"
-                >Capital:<span class="descRight"> Brussels</span>
-              </span>
+      <div class="row r">
+        <div class="col-12 col-md-12 col-lg-6 imgCol">
+          <img src="images/be.svg" class="img" />
+        </div>
+        <div class="col-12 col-md-12 col-lg-6 detailsCol">
+          <div class="detailsContainer">
+            <h2>Belgium</h2>
+            <div class="info d-flex justify-content-between">
+              <div class="infoText">
+                <p>Native Name:<span>België</span></p>
+                <p>Population:<span>11,319,511</span></p>
+                <p>Region:<span>Europe</span></p>
+                <p>Sub Region:<span>Western Europe</span></p>
+                <p>Capital:<span>Brussels</span></p>
+              </div>
+              <div class="infoText">
+                <p>Top Level Domain:<span>.be</span></p>
+                <p>Currencies:<span>Euro</span></p>
+                <p>Languages:<span>Dutch, French, German</span></p>
+              </div>
             </div>
-            <div>
-              <span class="descLeft"
-                >Top Level Domain:<span class="descRight"> .be</span></span
-              >
-              <span class="descLeft"
-                >Currencies:<span class="descRight"> Euro</span></span
-              >
-              <span class="descLeft"
-                >Languages:<span class="descRight"> Dutch, French, German</span>
-              </span>
-            </div>
-          </div>
-          <div id="borderCountries">
-            <span>Border Countries: </span>
-            <div id="borderItemContainer">
-              <div class="borderItem">France</div>
-              <div class="borderItem">Germany</div>
-              <div class="borderItem">Netherlands</div>
+            <div class="borderCountries d-flex align-items-center">
+              <span>Border Countries:</span>
+              <div class="borderItemContainer d-flex ">
+                <div class="borderItem">France</div>
+                <div class="borderItem">Germany</div>
+                <div class="borderItem">Netherlands</div>
+              </div>
             </div>
           </div>
         </div>
