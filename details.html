@@ -21,6 +21,7 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="style.css" />
+    <script src="script2.js"></script>
     <title>Assignment 2</title>
   </head>
   <body>
@@ -31,44 +32,19 @@
         <span class="headerText">Where in the world?</span>
         <div class="darkMode">
           <i class="fa-regular fa-moon"></i>
-          <span>Dark Mode</span>
+          <button class="darkModeButton" onclick="switchDarkmode();">
+            <span>Dark Mode</span>
+          </button>
         </div>
       </div>
     </header>
     <main class="mainContainer m">
+      <div id="loader"></div>
       <div class="backButton">
         <a href="index.html"> <i class="fa-solid fa-arrow-left"></i> Back </a>
       </div>
       <div class="row r">
-        <div class="col-12 col-md-12 col-lg-6 imgCol">
-          <img src="images/be.svg" class="img" />
-        </div>
-        <div class="col-12 col-md-12 col-lg-6 detailsCol">
-          <div class="detailsContainer">
-            <h2>Belgium</h2>
-            <div class="info d-flex justify-content-between">
-              <div class="infoText">
-                <p>Native Name:<span>België</span></p>
-                <p>Population:<span>11,319,511</span></p>
-                <p>Region:<span>Europe</span></p>
-                <p>Sub Region:<span>Western Europe</span></p>
-                <p>Capital:<span>Brussels</span></p>
-              </div>
-              <div class="infoText">
-                <p>Top Level Domain:<span>.be</span></p>
-                <p>Currencies:<span>Euro</span></p>
-                <p>Languages:<span>Dutch, French, German</span></p>
-              </div>
-            </div>
-            <div class="borderCountries d-flex align-items-center">
-              <span>Border Countries:</span>
-              <div class="borderItemContainer d-flex">
-                <div class="borderItem">France</div>
-                <div class="borderItem">Germany</div>
-                <div class="borderItem">Netherlands</div>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </main>

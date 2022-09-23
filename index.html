@@ -31,229 +31,43 @@
         <span class="headerText">Where in the world?</span>
         <div class="darkMode">
           <i class="fa-regular fa-moon"></i>
-          <span>Dark Mode</span>
+          <button class="darkModeButton" onclick="switchDarkmode();">
+            <span>Dark Mode</span>
+          </button>
         </div>
       </div>
     </header>
     <main class="mainContainer">
+      <div id="loader"></div>
       <div class="upperBody d-flex justify-content-between">
         <div class="searchBar boxShadow borderRadius">
           <i class="fa-solid fa-magnifying-glass searchIcon"></i>
-          <input placeholder="Search for a country..." class="input" />
+          <input
+            placeholder="Search for a country..."
+            class="input"
+            onkeyup="search()"
+            osOnChangeTimerDelay="3000;"
+          />
         </div>
         <div class="dropdown boxShadow borderRadius">
           <div class="dropbtn">
-            <span>Filter by Region</span>
+            <span class="dropbtnText">Filter by Region</span>
             <i class="fa-solid fa-chevron-down"></i>
           </div>
           <div class="dropdown-content borderRadius boxShadow">
-            <a href="#">Africa</a>
-            <a href="#">America</a>
-            <a href="#">Asia</a>
-            <a href="#">Europe</a>
-            <a href="#">Oceania</a>
+            <a href="#" class="dropdownItem">All</a>
+            <a href="#" class="dropdownItem">Africa</a>
+            <a href="#" class="dropdownItem">Americas</a>
+            <a href="#" class="dropdownItem">Asia</a>
+            <a href="#" class="dropdownItem">Europe</a>
+            <a href="#" class="dropdownItem">Oceania</a>
           </div>
         </div>
       </div>
       <div class="gridContainer">
-        <div class="row g-5">
-          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="country">
-              <div class="card">
-                <a href="details.html" class="link">
-                  <img src="images/de.svg" class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">Germany</h5>
-                    <div class="card-text">
-                      <div class="card-text-item">
-                        <p>Population:</p>
-                        <span>81,770,900</span>
-                      </div>
-                      <div class="card-text-item">
-                        <p>Region:</p>
-                        <span>Europe</span>
-                      </div>
-                      <div class="card-text-item">
-                        <p>Capital:</p>
-                        <span>Berlin</span>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="country">
-              <div class="card">
-                <img src="images/us.svg" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">United State Of America</h5>
-                  <div class="card-text">
-                    <div class="card-text-item">
-                      <p>Population:</p>
-                      <span>323,947,000</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Region:</p>
-                      <span>Americas</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Capital:</p>
-                      <span>Washington D.C.</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="country">
-              <div class="card">
-                <img src="images/br.svg" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Brazil</h5>
-                  <div class="card-text">
-                    <div class="card-text-item">
-                      <p>Population:</p>
-                      <span>206,135,893</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Region:</p>
-                      <span>Americas</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Capital:</p>
-                      <span>Brasília</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="country">
-              <div class="card">
-                <img src="images/is.svg" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Iceland</h5>
-                  <div class="card-text">
-                    <div class="card-text-item">
-                      <p>Population:</p>
-                      <span>334,300</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Region:</p>
-                      <span>Europe</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Capital:</p>
-                      <span>Reykjavík</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="country">
-              <div class="card">
-                <img src="images/af.svg" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Afghanistan</h5>
-                  <div class="card-text">
-                    <div class="card-text-item">
-                      <p>Population:</p>
-                      <span>27,657,145</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Region:</p>
-                      <span>Asia</span>
-                    </div>
-
-                    <div class="card-text-item">
-                      <p>Capital:</p>
-                      <span>Kabul</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="country">
-              <div class="card">
-                <img src="images/ax.svg" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Aland Islands</h5>
-                  <div class="card-text">
-                    <div class="card-text-item">
-                      <p>Population:</p>
-                      <span>28,875</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Region:</p>
-                      <span>Europe</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Capital:</p>
-                      <span>Mariehamn</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="country">
-              <div class="card">
-                <img src="images/al.svg" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Albania</h5>
-                  <div class="card-text">
-                    <div class="card-text-item">
-                      <p>Population:</p>
-                      <span>2,886,026</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Region:</p>
-                      <span>Europe</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Capital:</p>
-                      <span>Tirana</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="country">
-              <div class="card">
-                <img src="images/dz.svg" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Algeria</h5>
-                  <div class="card-text">
-                    <div class="card-text-item">
-                      <p>Population:</p>
-                      <span> 40,400,000</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Region:</p>
-                      <span>Africa</span>
-                    </div>
-                    <div class="card-text-item">
-                      <p>Capital:</p>
-                      <span>Algiers</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="row g-5"></div>
       </div>
     </main>
   </body>
+  <script src="script.js"></script>
 </html>
