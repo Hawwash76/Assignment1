@@ -2,6 +2,9 @@ let loadingStatus = true;
 loadDetails();
 
 async function fetchDetails() {
+  if (localStorage.getItem("name") == "United States") {
+    localStorage.setItem("name", "united states of america");
+  }
   const res = await fetch(
     "https://restcountries.com/v3.1/name/" +
       localStorage.getItem("name") +
