@@ -1,9 +1,3 @@
-let darkStatus = localStorage.getItem("darkStatus");
-if (darkStatus == null) {
-  darkStatus = "false";
-}
-checkDarkMode();
-
 let countries = [];
 let timeout = null;
 
@@ -21,9 +15,11 @@ async function fetchByName(name) {
     .catch((err) => console.log("Error is :" + err));
 
   for (let i = 0; i < res.length; i++) {
+    let n = res[i].population;
+
     const object = {
       name: res[i].name.common,
-      population: res[i].population,
+      population: n.toLocaleString(),
       region: res[i].region,
       capital: res[i].capital,
       flag: res[i].flags.svg,
@@ -44,9 +40,15 @@ async function loadHome() {
   displayCountries(countries);
 }
 
-async function displayCountries(arr) {
+function displayCountries(arr) {
   document.getElementById("loader").style.display = "none";
   document.getElementsByClassName("row")[0].innerHTML = "";
+  if (arr.length == 0) {
+    document.getElementsByClassName("errorHandler")[0].style.display = "block";
+  } else {
+    document.getElementsByClassName("errorHandler")[0].style.display = "none";
+  }
+
   for (let i = 0; i < arr.length; i++) {
     addCountry(
       arr[i].flag,
@@ -114,44 +116,6 @@ function search() {
       displayCountries(countries.reverse());
     }
   }, 1000);
-}
-
-function checkDarkMode() {
-  if (darkStatus == "true") {
-    document.documentElement.style.setProperty("--color", "#ffffff");
-    document.documentElement.style.setProperty("--font-grey", "#ffffff");
-    document.documentElement.style.setProperty("--white", "#2b3945");
-    document.documentElement.style.setProperty("--light-gray", "#202c37");
-  } else if (darkStatus == "false") {
-    document.documentElement.style.setProperty("--color", "black");
-    document.documentElement.style.setProperty(
-      "--font-grey",
-      "rgb(80, 79, 79)"
-    );
-    document.documentElement.style.setProperty("--white", "#ffffff");
-    document.documentElement.style.setProperty("--light-gray", "#fafafa");
-  }
-}
-
-function switchDarkmode() {
-  if (darkStatus == "false") {
-    document.documentElement.style.setProperty("--color", "#ffffff");
-    document.documentElement.style.setProperty("--font-grey", "#ffffff");
-    document.documentElement.style.setProperty("--white", "#2b3945");
-    document.documentElement.style.setProperty("--light-gray", "#202c37");
-    localStorage.setItem("darkStatus", true);
-    darkStatus = "true";
-  } else if (darkStatus == "true") {
-    document.documentElement.style.setProperty("--color", "black");
-    document.documentElement.style.setProperty(
-      "--font-grey",
-      "rgb(80, 79, 79)"
-    );
-    document.documentElement.style.setProperty("--white", "#ffffff");
-    document.documentElement.style.setProperty("--light-gray", "#fafafa");
-    localStorage.setItem("darkStatus", false);
-    darkStatus = "false";
-  }
 }
 
 const dropDown = document.querySelectorAll(".dropdownItem");

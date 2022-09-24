@@ -20,8 +20,9 @@
       src="https://kit.fontawesome.com/162c7e4191.js"
       crossorigin="anonymous"
     ></script>
+    <script src="DarkMode.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <title>Assignment 2</title>
+    <title>Where in the World</title>
   </head>
   <body>
     <header>
@@ -38,7 +39,6 @@
       </div>
     </header>
     <main class="mainContainer">
-      <div id="loader"></div>
       <div class="upperBody d-flex justify-content-between">
         <div class="searchBar boxShadow borderRadius">
           <i class="fa-solid fa-magnifying-glass searchIcon"></i>
@@ -64,10 +64,12 @@
           </div>
         </div>
       </div>
+      <div id="loader"></div>
+      <div class="errorHandler">No Countries Found :(</div>
       <div class="gridContainer">
         <div class="row g-5"></div>
       </div>
     </main>
   </body>
-  <script src="script.js"></script>
+  <script src="HomeScript.js"></script>
 </html>
