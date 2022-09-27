@@ -29,14 +29,26 @@ async function fetchByName(name) {
 }
 
 async function loadHome() {
-  await fetchByName("algeria");
-  await fetchByName("albania");
-  await fetchByName("Åland Islands");
-  await fetchByName("afghanistan");
-  await fetchByName("iceland");
-  await fetchByName("brazil");
-  await fetchByName("united states of america");
-  await fetchByName("germany");
+
+  const res = await fetch(
+    "https://restcountries.com/v3.1/all"
+  )
+    .then((response) => response.json())
+    .catch((err) => console.log("Error is :" + err));
+
+  for (let i = 0; i < res.length; i++) {
+    let n = res[i].population;
+
+    const object = {
+      name: res[i].name.common,
+      population: n.toLocaleString(),
+      region: res[i].region,
+      capital: res[i].capital,
+      flag: res[i].flags.svg,
+    };
+    countries.push(object);
+  }
+
   displayCountries(countries);
 }
 
@@ -70,7 +82,7 @@ function addCountry(svg, name, population, region, capital) {
   let countryContainer = document.getElementsByClassName("row")[0];
   let innerText = `
     <div class="country">
-      <a href="./details.html" class="link">
+      <a href="./details.html?country=${name}" class="link">
         <div class="card">
           <img src="${svg}" class="card-img-top" alt="..." />
           <div class="card-body">
@@ -105,7 +117,7 @@ function search() {
   clearTimeout(timeout);
   timeout = setTimeout(async function () {
     countries = [];
-    let searchText = document.getElementsByClassName("input")[0].value;
+    let searchText = document.getElementsByClassName("form-control")[0].value;
     document.getElementsByClassName("row")[0].innerHTML = "";
 
     if (searchText === "") {

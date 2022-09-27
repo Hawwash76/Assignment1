@@ -40,13 +40,13 @@
     </header>
     <main class="mainContainer">
       <div class="upperBody d-flex justify-content-between">
-        <div class="searchBar boxShadow borderRadius">
-          <i class="fa-solid fa-magnifying-glass searchIcon"></i>
+        <div class="search-box d-flex align-items-center">
+          <i class="fa fa-search"></i>
           <input
+            type="search"
+            class="form-control"
             placeholder="Search for a country..."
-            class="input"
             onkeyup="search()"
-            osOnChangeTimerDelay="3000;"
           />
         </div>
         <div class="dropdown boxShadow borderRadius">

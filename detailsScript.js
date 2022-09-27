@@ -1,13 +1,12 @@
 let loadingStatus = true;
+const params = new URLSearchParams(window.location.search);
+let countryname = params.get("country");
 loadDetails();
 
 async function fetchDetails() {
-  if (localStorage.getItem("name") == "United States") {
-    localStorage.setItem("name", "united states of america");
-  }
   const res = await fetch(
     "https://restcountries.com/v3.1/name/" +
-      localStorage.getItem("name") +
+    countryname +
       "?fields=name,population,region,subregion,capital,tld,currencies,languages,flags,borders,"
   )
     .then((response) => response.json())
