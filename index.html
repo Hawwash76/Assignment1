@@ -56,6 +56,7 @@
           </div>
           <div class="dropdown-content borderRadius boxShadow">
             <a href="#" class="dropdownItem">All</a>
+            <a href="#" class="dropdownItem">Favorites</a>
             <a href="#" class="dropdownItem">Africa</a>
             <a href="#" class="dropdownItem">Americas</a>
             <a href="#" class="dropdownItem">Asia</a>
@@ -64,10 +65,27 @@
           </div>
         </div>
       </div>
+
       <div id="loader"></div>
-      <div class="errorHandler">No Countries Found :(</div>
-      <div class="gridContainer">
-        <div class="row g-5"></div>
+      <div class="countryContainer d-flex">
+        <div class="favorites borderRadius boxShadow">
+          <h5>Favorites</h5>
+          <div
+            class="dropArea"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+            ondragenter="changeBorder(event)"
+            ondragleave="clearBorder(event)"
+          >
+            <div class="emptyFavorites">
+              Add countries by draging them over here :)
+            </div>
+          </div>
+        </div>
+        <div class="gridContainer">
+          <div class="row g-5"></div>
+          <div class="errorHandler">No Countries Found :(</div>
+        </div>
       </div>
     </main>
   </body>

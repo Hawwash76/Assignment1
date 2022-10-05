@@ -1,55 +1,47 @@
 let countries = [];
+let favorites = getFavourites() ? getFavourites() : [];
 let timeout = null;
+let draggedCountry = {
+  name: "",
+  flag: "",
+};
+const dropDown = document.querySelectorAll(".dropdownItem");
+const buttonText = document.getElementsByClassName("dropbtnText")[0];
+const fav = document.getElementsByClassName("emptyFavorites")[0];
 
-loadHome();
+init();
 
-async function fetchByName(name) {
-  document.getElementById("loader").style.display = "block";
-
-  const res = await fetch(
-    "https://restcountries.com/v3.1/name/" +
-      name +
-      "?fields=name,population,region,capital,flags,"
-  )
-    .then((response) => response.json())
-    .catch((err) => console.log("Error is :" + err));
-
-  for (let i = 0; i < res.length; i++) {
-    let n = res[i].population;
-
-    const object = {
-      name: res[i].name.common,
-      population: n.toLocaleString(),
-      region: res[i].region,
-      capital: res[i].capital,
-      flag: res[i].flags.svg,
-    };
-    countries.unshift(object);
-  }
+async function init() {
+  await loadAll();
+  displayCountries(countries);
+  displayFavorites();
 }
 
-async function loadHome() {
-
-  const res = await fetch(
-    "https://restcountries.com/v3.1/all"
-  )
+async function loadAll() {
+  const res = await fetch("https://restcountries.com/v3.1/all")
     .then((response) => response.json())
     .catch((err) => console.log("Error is :" + err));
 
   for (let i = 0; i < res.length; i++) {
-    let n = res[i].population;
+    let population = res[i].population;
+    let isFavorite = false;
+
+    favorites.forEach(function (arrayItem) {
+      if (arrayItem.name === res[i].name.common) {
+        isFavorite = true;
+      }
+    });
 
     const object = {
       name: res[i].name.common,
-      population: n.toLocaleString(),
+      population: population.toLocaleString(),
       region: res[i].region,
       capital: res[i].capital,
       flag: res[i].flags.svg,
+      favorites: isFavorite,
     };
     countries.push(object);
   }
-
-  displayCountries(countries);
 }
 
 function displayCountries(arr) {
@@ -67,71 +59,178 @@ function displayCountries(arr) {
       arr[i].name,
       arr[i].population,
       arr[i].region,
-      arr[i].capital
+      arr[i].capital,
+      arr[i].favorites
     );
   }
-  const cards = document.querySelectorAll(".card");
-  cards.forEach((card) =>
-    card.addEventListener("click", (event) => {
-      localStorage.setItem("name", card.children[1].children[0].innerText);
-    })
-  );
 }
 
-function addCountry(svg, name, population, region, capital) {
+function displayFavorites() {
+  let allElements = document.getElementsByClassName("card-body");
+
+  for (let i = 0; i < favorites.length; i++) {
+    for (let j = 0; j < allElements.length; j++) {
+      if (allElements[j].childNodes[1].innerText == favorites[i].name) {
+        allElements[j].childNodes[5].childNodes[1].style.color =
+          "rgb(226, 152, 60)";
+      } else {
+        allElements[j].childNodes[5].childNodes[1].style.color =
+          "rgb(203, 203, 203)";
+      }
+    }
+  }
+
+  if (favorites.length < 1) {
+    fav.style.display = "block";
+    let favoriteContainer = document.getElementsByClassName("dropArea")[0];
+    favoriteContainer.innerHTML = "";
+  } else {
+    fav.style.display = "none";
+    let favoriteContainer = document.getElementsByClassName("dropArea")[0];
+    favoriteContainer.innerHTML = "";
+    for (let i = 0; i < favorites.length; i++) {
+      let innerText = `
+        <div>
+          <img class="borderRadios" src="${favorites[i].flag}" />
+          <span>${favorites[i].name}</span>
+        </div>
+        <button onclick="remove(event)">x</button>
+    `;
+
+      var newItem = document.createElement("i");
+      newItem.className = "favoriteItem";
+      newItem.innerHTML = innerText;
+      favoriteContainer.appendChild(newItem);
+    }
+  }
+}
+
+//--------------------------------------------------------------------------------
+
+async function fetchByName(name) {
+  document.getElementById("loader").style.display = "block";
+
+  const res = await fetch(
+    "https://restcountries.com/v3.1/name/" +
+      name +
+      "?fields=name,population,region,capital,flags,"
+  )
+    .then((response) => response.json())
+    .catch((err) => console.log("Error is :" + err));
+
+  for (let i = 0; i < res.length; i++) {
+    let population = res[i].population;
+    let isFavorite = false;
+
+    favorites.forEach(function (arrayItem) {
+      if (arrayItem.name === res[i].name.common) {
+        isFavorite = true;
+      }
+    });
+    const object = {
+      name: res[i].name.common,
+      population: population.toLocaleString(),
+      region: res[i].region,
+      capital: res[i].capital,
+      flag: res[i].flags.svg,
+      favorites: isFavorite,
+    };
+    countries.unshift(object);
+  }
+}
+
+function dragStart(event) {
+  event.target.style.opacity = "0.5";
+
+  draggedCountry.name =
+    event.target.childNodes[1].childNodes[3].childNodes[1].innerText;
+
+  draggedCountry.flag =
+    event.target.childNodes[1].childNodes[1].childNodes[1].src;
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  let found = false;
+  for (let i = 0; i < favorites.length; i++) {
+    if (favorites[i].name == draggedCountry.name) {
+      found = true;
+    }
+  }
+
+  if (!found) {
+    favorites.push({ name: draggedCountry.name, flag: draggedCountry.flag });
+    for (let i = 0; i < countries.length; i++) {
+      if (draggedCountry.name == countries[i].name) {
+        countries[i].favorites = true;
+      }
+    }
+  }
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  displayFavorites();
+  document.getElementsByClassName("favorites")[0].style.border =
+    "0px solid grey";
+}
+
+function addCountry(svg, name, population, region, capital, favorite) {
   let countryContainer = document.getElementsByClassName("row")[0];
   let innerText = `
-    <div class="country">
-      <a href="./details.html?country=${name}" class="link">
-        <div class="card">
-          <img src="${svg}" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">${name}</h5>
-            <div class="card-text">
-              <div class="card-text-item">
-                <p>Population:</p>
-                <span>${population}</span>
-              </div>
-              <div class="card-text-item">
-                <p>Region:</p>
-                <span>${region}</span>
-              </div>
-              <div class="card-text-item">
-                <p>Capital:</p>
-                <span>${capital}</span>
-              </div>
+    <div class="country" draggable="true" ondragstart="dragStart(event)" ondragend="dragEnd(event)">
+      <div class="card" >
+        <a href="./details.html?country=${name}" class="link" draggable="false">
+          <img src="${svg}" draggable="false" class="card-img-top" alt="..." />
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">${name}</h5>
+          <div class="card-text">
+            <div class="card-text-item">
+              <p>Population:</p>
+              <span>${population}</span>
+            </div>
+            <div class="card-text-item">
+              <p>Region:</p>
+              <span>${region}</span>
+            </div>
+            <div class="card-text-item">
+              <p>Capital:</p>
+              <span>${capital}</span>
             </div>
           </div>
+          <div class="starContainer">
+            <i class="fa-sharp fa-solid fa-star Star" favorite=${favorite} onclick="mobileSetFavorite(event)" ></i>
+          </div>
         </div>
-      </a>
+      </div>
     </div>
 `;
 
   var newDiv = document.createElement("div");
-  newDiv.className = "col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 countryCol";
+  newDiv.className = "col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 countryCol";
   newDiv.innerHTML = innerText;
   countryContainer.appendChild(newDiv);
 }
 
-function search() {
+async function search() {
   clearTimeout(timeout);
   timeout = setTimeout(async function () {
     countries = [];
     let searchText = document.getElementsByClassName("form-control")[0].value;
     document.getElementsByClassName("row")[0].innerHTML = "";
 
-    if (searchText === "") {
-      loadHome();
+    console.log(searchText == "");
+    if (searchText == "") {
+      await loadAll();
+      displayCountries(countries);
     } else {
       await fetchByName(searchText);
-      console.log(1);
-      displayCountries(countries.reverse());
+      displayCountries(countries);
     }
   }, 1000);
 }
-
-const dropDown = document.querySelectorAll(".dropdownItem");
-const buttonText = document.getElementsByClassName("dropbtnText")[0];
 
 dropDown.forEach((item) =>
   item.addEventListener("click", (event) => {
@@ -139,6 +238,16 @@ dropDown.forEach((item) =>
     buttonText.innerText = filter;
     if (filter === "All") {
       displayCountries(countries);
+    } else if (filter === "Favorites") {
+      let newArr = [];
+
+      for (let i = 0; i < countries.length; i++) {
+        if (countries[i].favorites) {
+          newArr.unshift(countries[i]);
+        }
+      }
+      document.getElementsByClassName("row")[0].innerHTML = "";
+      displayCountries(newArr);
     } else {
       let newArr = [];
       for (let i = 0; i < countries.length; i++) {
@@ -151,3 +260,98 @@ dropDown.forEach((item) =>
     }
   })
 );
+
+function remove(event) {
+  const name = event.target.parentElement.childNodes[1].childNodes[3].innerText;
+
+  const dropArea = document.getElementsByClassName("dropArea")[0];
+  dropArea.removeChild(event.target.parentElement);
+
+  if (favorites.length <= 1) {
+    favorites = [];
+  } else {
+    for (let i = 0; i < favorites.length; i++) {
+      if (favorites[i].name == name) {
+        favorites.splice(i, 1);
+      }
+    }
+  }
+
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  displayFavorites();
+}
+
+function mobileSetFavorite(event) {
+  let name = event.target.parentNode.parentNode.childNodes[1].innerText;
+  let found = false;
+  for (let i = 0; i < favorites.length; i++) {
+    if (name == favorites[i].name) {
+      found = true;
+    }
+  }
+
+  if (!found) {
+    event.target.style.color = "rgb(226, 152, 60)";
+    let name = event.target.parentNode.parentNode.childNodes[1].innerText;
+    let flag =
+      event.target.parentNode.parentNode.parentNode.childNodes[1].childNodes[1]
+        .src;
+    favorites.push({ name: name, flag: flag });
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    displayFavorites();
+  } else {
+    event.target.style.color = "rgb(203, 203, 203)";
+    let name = event.target.parentNode.parentNode.childNodes[1].innerText;
+    if (favorites.length <= 1) {
+      favorites = [];
+    } else {
+      for (let i = 0; i < favorites.length; i++) {
+        if (favorites[i].name == name) {
+          favorites.splice(i, 1);
+        }
+      }
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    displayFavorites();
+  }
+}
+
+function getFavourites() {
+  return JSON.parse(localStorage.getItem("favorites"));
+}
+
+function dragEnd(event) {
+  event.target.style.opacity = "1";
+}
+
+function changeBorder() {
+  document.getElementsByClassName("favorites")[0].style.border =
+    "1px solid grey";
+}
+
+function clearBorder() {
+  document.getElementsByClassName("favorites")[0].style.border =
+    "0px solid grey";
+}
+
+//------------------------------------------------
+
+function drop2(ev) {
+  ev.preventDefault();
+  let found = false;
+  for (let i = 0; i < favorites.length; i++) {
+    if (favorites[i].name == draggedCountry.name) {
+      found = true;
+    }
+  }
+
+  if (!found) {
+    favorites.push({ name: draggedCountry.name, flag: draggedCountry.flag });
+  }
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  displayFavorites();
+  document.getElementsByClassName("favorites")[0].style.border =
+    "0px solid grey";
+}
+
+function displayFavorites2() {}
