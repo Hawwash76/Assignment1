@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow&family=Nunito+Sans:wght@300;600;800&display=swap");
+
 :root {
   --color: black;
   --font-grey: rgb(80, 79, 79);
@@ -22,7 +24,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: var(--font-main);
+  font-family: "Nunito Sans";
   color: var(--color);
 }
 
@@ -52,6 +54,9 @@ body {
 
 .mainContainer {
   padding: 0rem 5rem;
+}
+
+main {
   margin-bottom: 4rem;
 }
 
@@ -63,7 +68,7 @@ header {
 
 .headerText {
   font-size: 1.5rem;
-  font-weight: var(--weight-semi);
+  font-weight: var(--weight-bold);
 }
 
 .darkMode {
@@ -119,6 +124,7 @@ header {
 .form-control::placeholder {
   color: var(--font-grey);
   font-size: 0.8rem;
+  font-weight: var(--weight-semi);
 }
 
 .dropdown {
@@ -142,7 +148,7 @@ header {
 }
 
 .dropbtn span {
-  font-weight: var(--weight-light);
+  font-weight: var(--weight-semi);
   font-size: 0.8rem;
   color: var(--font-grey);
 }
@@ -400,6 +406,7 @@ header {
   overflow-y: scroll;
   height: 36rem;
   width: 100%;
+  padding-right: 1rem;
 }
 
 .dropArea::-webkit-scrollbar {
