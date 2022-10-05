@@ -222,6 +222,8 @@ header {
   overflow: hidden;
   position: relative;
   background-color: var(--white);
+  border-style: none;
+  box-shadow: 0.05rem 0.05rem 0.05rem 0.05rem rgba(76, 75, 89, 0.058);;
 }
 
 .starContainer {
@@ -250,7 +252,7 @@ header {
 
 .card-title {
   font-size: 1.1rem;
-  font-weight: var(--weight-semi);
+  font-weight: var(--weight-bold);
 }
 
 .card-text p,
@@ -425,11 +427,6 @@ header {
   border-left: 0.05rem solid rgba(160, 160, 160, 0.203);
   border-right: 0.05rem solid rgba(160, 160, 160, 0.203);
   padding-left: 2rem;
-}
-
-.emptyFavorites {
-  font-size: 0.9rem;
-  margin-top: 1rem;
 }
 
 .favorites h5 {

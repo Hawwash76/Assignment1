@@ -7,7 +7,6 @@ let draggedCountry = {
 };
 const dropDown = document.querySelectorAll(".dropdownItem");
 const buttonText = document.getElementsByClassName("dropbtnText")[0];
-const fav = document.getElementsByClassName("emptyFavorites")[0];
 
 init();
 
@@ -66,26 +65,26 @@ function displayCountries(arr) {
 }
 
 function displayFavorites() {
-  let allElements = document.getElementsByClassName("card-body");
+  // let allElements = document.getElementsByClassName("card-body");
 
-  for (let i = 0; i < favorites.length; i++) {
-    for (let j = 0; j < allElements.length; j++) {
-      if (allElements[j].childNodes[1].innerText == favorites[i].name) {
-        allElements[j].childNodes[5].childNodes[1].style.color =
-          "rgb(226, 152, 60)";
-      } else {
-        allElements[j].childNodes[5].childNodes[1].style.color =
-          "rgb(203, 203, 203)";
-      }
-    }
-  }
+  // for (let i = 0; i < favorites.length; i++) {
+  //   for (let j = 0; j < allElements.length; j++) {
+  //     if (allElements[j].childNodes[1].innerText == favorites[i].name) {
+  //       const item = allElements[j].childNodes[5].childNodes[1];
+  //       item.style.color = "rgb(226, 152, 60)";
+  //       console.log(allElements[j].childNodes[5].childNodes[1]);
+  //     } else {
+  //       const item = allElements[j].childNodes[5].childNodes[1];
+  //       item.style.color = "rgb(203, 203, 203)";
+  //     }
+  //   }
+  // }
 
   if (favorites.length < 1) {
-    fav.style.display = "block";
     let favoriteContainer = document.getElementsByClassName("dropArea")[0];
-    favoriteContainer.innerHTML = "";
+    favoriteContainer.innerHTML =
+      "<span>Add countries by draging them over here :)</span>";
   } else {
-    fav.style.display = "none";
     let favoriteContainer = document.getElementsByClassName("dropArea")[0];
     favoriteContainer.innerHTML = "";
     for (let i = 0; i < favorites.length; i++) {
@@ -177,6 +176,13 @@ function drop(ev) {
 }
 
 function addCountry(svg, name, population, region, capital, favorite) {
+  let color = "";
+  if (favorite) {
+    color = "rgb(226, 152, 60)";
+  } else {
+    ("rgb(203, 203, 203)");
+  }
+
   let countryContainer = document.getElementsByClassName("row")[0];
   let innerText = `
     <div class="country" draggable="true" ondragstart="dragStart(event)" ondragend="dragEnd(event)">
@@ -201,7 +207,7 @@ function addCountry(svg, name, population, region, capital, favorite) {
             </div>
           </div>
           <div class="starContainer">
-            <i class="fa-sharp fa-solid fa-star Star" favorite=${favorite} onclick="mobileSetFavorite(event)" ></i>
+            <i class="fa-sharp fa-solid fa-star Star" style="color:${color}" onclick="mobileSetFavorite(event)" ></i>
           </div>
         </div>
       </div>
@@ -335,23 +341,3 @@ function clearBorder() {
 }
 
 //------------------------------------------------
-
-function drop2(ev) {
-  ev.preventDefault();
-  let found = false;
-  for (let i = 0; i < favorites.length; i++) {
-    if (favorites[i].name == draggedCountry.name) {
-      found = true;
-    }
-  }
-
-  if (!found) {
-    favorites.push({ name: draggedCountry.name, flag: draggedCountry.flag });
-  }
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-  displayFavorites();
-  document.getElementsByClassName("favorites")[0].style.border =
-    "0px solid grey";
-}
-
-function displayFavorites2() {}
